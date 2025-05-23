@@ -1,46 +1,76 @@
-🥚 Egg Timer <3
-This is a fun and simple Egg Timer web application that helps you cook eggs just the way you like them—Soft Boiled, Medium Boiled, Hard Boiled, or Poached! 🕒🍳
+# 🥚 Egg Timer <3
 
-🚀 Features
-> Clean and colorful UI with animated interactions.
-> Select from four different egg styles.
-> Shows egg-specific cooking details.
-> Built-in countdown timer with a ticking display.
-> Plays an alarm sound when the egg is ready.
-> Responsive and easy to use!
+A fun and simple Egg Timer web application that helps you cook eggs just the way you like them — **Soft Boiled**, **Medium Boiled**, **Hard Boiled**, or **Poached**! 🕒🍳
 
-📸 Screens
-Start Screen – "Let's time your egg!" with a Start button.
-Selection Screen – Choose your egg style with images.
-Details & Timer Screen – Shows the egg description, timer, and a start button.
-Ready Screen – Informs you when your egg is ready!
+---
 
-🧠 Technologies Used
-HTML5
-CSS3
-JavaScript
+## 🚀 Features
 
-🎵 Sound
-The timer alarm uses a sound from Google Actions Sound Library.
+- 🎨 Clean and colorful UI with animated interactions  
+- 🥚 Select from four different egg styles  
+- 📋 Shows egg-specific cooking details  
+- ⏱️ Built-in countdown timer with a ticking display  
+- 🔔 Plays an alarm sound when the egg is ready  
+- 📱 Fully responsive and easy to use!  
 
-📝 How to Use
-Open the index.html file in any web browser.
-Click Start on the landing screen.
-Choose the egg style you want to cook.
-Click Start Timer to begin countdown.
-When the timer finishes, an alarm will ring and you'll be taken to a screen saying your egg is ready!
+---
 
-📂 File Structure
-📁 egg-timer/
+## 📸 Screens
+
+- **Start Screen** – "Let's time your egg!" with a Start button  
+- **Selection Screen** – Choose your egg style with images  
+- **Details & Timer Screen** – Displays egg description, timer, and Start Timer button  
+- **Ready Screen** – Notifies when your egg is perfectly cooked!  
+
+---
+
+## 🧠 Technologies Used
+
+- HTML5  
+- CSS3  
+- JavaScript  
+
+---
+
+## 🎵 Sound
+
+The timer alarm uses a sound from the [Google Actions Sound Library](https://developers.google.com/assistant/tools/sound-library).
+
+---
+
+## 📝 How to Use
+
+1. Open `index.html` in any modern web browser  
+2. Click **Start** on the landing screen  
+3. Choose your preferred **egg style**  
+4. Click **Start Timer** to begin the countdown  
+5. Once the timer ends, an alarm will ring and you'll see a **"Your egg is ready!"** message  
+
+---
+
+## 📂 File Structure
+
+egg-timer/
 ├── index.html
 ├── soft-boiled.jpg
 ├── medium-boiled.jpg
 ├── hard-boiled.jpg
 ├── poached eggs.jpg
-📌 Make sure the image files are in the same directory as your index.html.
 
-📌 Note
-The Start Timer button turns grey when clicked and countdown starts.
 
-🧑‍💻 Author
-Made with 💛 by Prathibha.
+> 📌 Make sure all image files are in the same directory as your `index.html`.
+
+---
+
+## 📌 Note
+
+- The **Start Timer** button turns grey when clicked and the countdown begins.  
+- You can customize egg timing by editing the JavaScript timer durations.
+
+---
+
+## 🧑‍💻 Author
+
+Made with 💛 by **Prathibha**
+
+---
