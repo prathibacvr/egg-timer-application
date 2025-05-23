@@ -50,12 +50,15 @@ The timer alarm uses a sound from the [Google Actions Sound Library](https://dev
 
 ## 📂 File Structure
 
-egg-timer/
-├── index.html
-├── soft-boiled.jpg
-├── medium-boiled.jpg
-├── hard-boiled.jpg
-├── poached eggs.jpg
+# Project tree
+
+.
+ * [index.html](./index.html)
+ * [soft-boiled.jpg](./soft-boiled.jpg)
+ * [medium-boiled.jpg](./medium-boiled.jpg)
+ * [hard-boiled.jpg](./hard-boiled.jpg)
+ * [poached eggs.jpg](./poached%20eggs.jpg)
+
 
 
 > 📌 Make sure all image files are in the same directory as your `index.html`.
