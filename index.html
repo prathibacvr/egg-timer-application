@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Egg Timer <3</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #E9C63D;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            zoom: 1.4; 
+        }
+        .header {
+            background-color: #E9C63D;
+            padding: 20px;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            font-weight: 500;
+        }
+        .content-box {
+            background-color: #FCE6C3;
+            border: 3px solid #F62222;
+            width: 440px;
+            height: 500px;
+            margin: 20px auto;
+            position: relative;
+            font-weight: 500;
+        }
+        .screen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .active {
+            display: block;
+        }
+        .center-text {
+            text-align: center;
+            padding-top: 100px;
+        }
+        .start-btn, .egg-btn, .back-btn {
+            background-color: #F62222;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-top: 20px;
+            cursor: pointer;
+            color: white;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .start-btn:hover, .egg-btn:hover, .back-btn:hover {
+            background-color: #b50000;
+        }
+        .start-timer-btn {
+            background-color: #F62222;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            margin: 30px auto 0;  
+            cursor: pointer;
+            color: white;
+            border-radius: 6px;
+            display: block;        
+            width: fit-content;    
+            transition: background-color 0.3s ease;
+        }
+        .start-timer-btn:hover {
+            background-color: #b50000;
+        }
+        .start-timer-btn.started {
+            background-color: #888888 !important;
+            cursor: not-allowed;
+        }
+        .egg-option {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .egg-option img {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #F62222;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+        .egg-option:hover img {
+            transform: scale(1.05);
+        }
+        .timer-label, .egg-desc, .details-text {
+            text-align: center;
+            margin-top: 10px;
+            white-space: pre-line;
+        }
+        .egg-ready {
+            color: green;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 200px;
+        }
+        .egg-desc, .details-text, .timer-label, .start-timer-btn {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>Egg Timer <3</div>
+    </div>
+
+    <div class="content-box">
+        <!-- Initial screen -->
+        <div id="startScreen" class="screen active">
+            <div class="center-text">
+                <h2>Let's time your egg!</h2>
+                <button class="start-btn" onclick="showScreen('selectionScreen')">Start</button>
+            </div>
+        </div>
+        <!-- Egg selection screen -->
+        <div id="selectionScreen" class="screen">
+            <h3 style="text-align:center;">Hey, What are you making today?</h3>
+            <div class="egg-option" onclick="selectEgg('Soft Boiled', 'soft-boiled.jpg', 5)">
+                <img src="soft-boiled.jpg" alt="Soft Boiled" />
+                <div>Soft Boiled</div>
+            </div>
+            <div class="egg-option" onclick="selectEgg('Medium Boiled', 'medium-boiled.jpg', 8)">
+                <img src="medium-boiled.jpg" alt="Medium Boiled" />
+                <div>Medium Boiled</div>
+            </div>
+            <div class="egg-option" onclick="selectEgg('Hard Boiled', 'hard-boiled.jpg', 10)">
+                <img src="hard-boiled.jpg" alt="Hard Boiled" />
+                <div>Hard Boiled</div>
+            </div>
+            <div class="egg-option" onclick="selectEgg('Poached', 'poached eggs.jpg', 3)">
+                <img src="poached eggs.jpg" alt="Poached Eggs" />
+                <div>Poached Eggs</div>
+            </div>
+        </div>
+        <!-- Details and countdown screen -->
+        <div id="detailsScreen" class="screen">
+            <button class="back-btn" onclick="showScreen('selectionScreen')">Back to Home</button>
+            <div class="egg-desc" id="eggDesc"></div>
+            <div class="details-text" id="detailsText"></div>
+            <div class="timer-label" id="timerLabel">Time Left: --</div>
+            <button class="start-timer-btn" onclick="startCountdown()">Start Timer</button>
+        </div>
+        <!-- Ready screen -->
+        <div id="readyScreen" class="screen">
+            <h2 class="egg-ready">Your egg is ready!</h2>
+            <button class="back-btn" onclick="showScreen('selectionScreen')">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        let countdownTime = 0;
+        let countdownInterval = null;
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (countdownInterval && id !== 'detailsScreen') {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                countdownTime = 0;
+                updateTimerLabel();
+                document.querySelector('.start-timer-btn').classList.remove('started');
+                document.querySelector('.start-timer-btn').disabled = false;
+            }
+        }
+        function selectEgg(type, img, time) {
+            showScreen('detailsScreen');
+            countdownTime = time * 60;
+            document.getElementById('eggDesc').innerHTML = `<strong>${type} Egg</strong><br>Time: ${time} minutes`;
+            const desc = {
+                "Soft Boiled": "&gt; Runny yolk<br>&gt; Best with toast<br>&gt; Cooking time: 5mins",
+                "Medium Boiled": "&gt; Slightly soft yolk<br>&gt; Great for salads<br>&gt; Cooking time: 8mins",
+                "Hard Boiled": "&gt; Fully cooked yolk<br>&gt; Perfect for sandwiches<br>&gt; Cooking time: 10mins",
+                "Poached Eggs": "&gt; Soft white<br>&gt; Best with hollandaise sauce<br>&gt; Cooking time: 3mins"
+            };
+            document.getElementById('detailsText').innerHTML = desc[type] || 'No details available';
+            updateTimerLabel();
+        }
+        function updateTimerLabel() {
+            const minutes = Math.floor(countdownTime / 60);
+            const seconds = countdownTime % 60;
+            document.getElementById('timerLabel').textContent = `Time Left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startCountdown() {
+            const startButton = document.querySelector('.start-timer-btn');
+            startButton.classList.add('started');
+            startButton.disabled = true;
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            countdownInterval = setInterval(() => {
+                if (countdownTime > 0) {
+                    countdownTime--;
+                    updateTimerLabel();
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownInterval = null;
+                    document.getElementById('timerLabel').textContent = "Time's up!";
+                    new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg').play();
+                    showScreen('readyScreen');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
