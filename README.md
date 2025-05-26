@@ -54,8 +54,6 @@ The timer alarm uses a sound from the [Google Actions Sound Library](https://dev
 ---
 
 ## 📌 Note
-
-- The **Start Timer** button turns grey when clicked and the countdown begins.  
 - You can customize egg timing by editing the JavaScript timer durations.
 
 ---
